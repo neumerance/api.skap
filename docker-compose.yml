@@ -6,8 +6,8 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 45whyu
+      POSTGRES_USER: ${DBUSER}
+      POSTGRES_PASSWORD: ${DBPASS}
     restart: always
     volumes:
       - skap_api_pgdata:/var/lib/postgresql/data
@@ -18,13 +18,10 @@ services:
       dockerfile: Dockerfile.dev
     command: ["bundle", "exec", "puma", "-C", "config/puma.rb"]
     ports:
-      - "4000:3000"
-    volumes:
-      - .:/app
+      - "80:3000"
     environment: &rails_environment
+      RAILS_ENV: production
       DBHOST: postgres
-      DBUSER: postgres
-      DBPASS: 45whyu
       ANYCABLE_HTTP_BROADCAST_URL: http://ws:8090/_broadcast
     restart: always
     env_file:
