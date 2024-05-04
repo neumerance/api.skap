@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 45whyu
+    volumes:
+      - skap_api_pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+    ports:
+      - "4000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+    environment:
+      DBHOST: postgres
+      DBUSER: postgres
+      DBPASS: 45whyu
+
+volumes:
+  skap_api_pgdata:
