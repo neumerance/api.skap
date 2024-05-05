@@ -31,6 +31,15 @@ services:
         condition: service_started
       anycable:
         condition: service_started
+  
+  nginx:
+    image: nginx:latest
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api
 
   anycable:
     <<: *api
