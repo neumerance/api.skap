@@ -1,0 +1,9 @@
+AllCops:
+  SuggestExtensions: false
+  Exclude:
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+    - 'config/**/*.rb'
+    - 'bin/**/*'
+Style/Documentation:
+  Enabled: false
